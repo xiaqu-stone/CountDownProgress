@@ -1,4 +1,4 @@
-package com.stone.circlecountdownview;
+package com.stone.countdownprogress;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -38,6 +38,7 @@ public class CountDownProgress extends View {
     private int circleColor;//圆框颜色
     private int circleSolidColor;//圆内部填充颜色
     private int progressColor;//进度颜色
+    private int progressWidth;//进度条宽度，默认与 circleStrokeWidth 一致
     private int textColor;//文字颜色
     private float textSize;//文字大小
     private CharSequence text;//文字
@@ -90,6 +91,7 @@ public class CountDownProgress extends View {
             circleStrokeWidth = a.getDimensionPixelOffset(R.styleable.CountDownProgress_cdp_circle_stroke_width, dp2px(2));
             circleColor = a.getColor(R.styleable.CountDownProgress_cdp_circle_stroke_color, 0xffe0e0e0);
             progressColor = a.getColor(R.styleable.CountDownProgress_cdp_progress_color, 0xff5e5e5e);
+            progressWidth = a.getDimensionPixelOffset(R.styleable.CountDownProgress_cdp_progress_width, circleStrokeWidth);
             textColor = a.getColor(R.styleable.CountDownProgress_cdp_text_color, 0xffffffff);
             textSize = a.getDimensionPixelSize(R.styleable.CountDownProgress_cdp_text_size, dp2px(14));
             text = a.getString(R.styleable.CountDownProgress_cdp_text);
@@ -116,6 +118,7 @@ public class CountDownProgress extends View {
         //进度条
         progressPaint = new Paint(circlePaint);
         progressPaint.setColor(progressColor);
+        progressPaint.setStrokeWidth(progressWidth);
         progressPaint.setStrokeCap(Paint.Cap.ROUND);//设置笔刷样式
         //文字
         textPaint = new Paint(circlePaint);
@@ -226,6 +229,11 @@ public class CountDownProgress extends View {
         }
     }
 
+    public void reset() {
+        currentAngle = 0f;
+        invalidate();
+    }
+
     public CountDownProgress setFinishListener(OnFinishListener finishListener) {
         this.finishListener = finishListener;
         return this;
@@ -237,6 +245,7 @@ public class CountDownProgress extends View {
 
     public CountDownProgress setTextColor(@ColorInt int textColor) {
         this.textColor = textColor;
+        textPaint.setColor(textColor);
         return this;
     }
 
@@ -246,11 +255,14 @@ public class CountDownProgress extends View {
      */
     public CountDownProgress setTextSize(float textSize) {
         this.textSize = dp2px(textSize);
+        textPaint.setTextSize(this.textSize);
+        requestLayout();
         return this;
     }
 
     public CountDownProgress setText(CharSequence text) {
         this.text = text;
+        requestLayout();
         return this;
     }
 

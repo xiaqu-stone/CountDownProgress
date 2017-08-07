@@ -15,3 +15,9 @@
 - cdp_start_degree 进度条的起始角度位置，（3点钟方向为 0 ，默认是12点方向 270）
 
 圆的大小通过View的width 与 height 自动计算。
+
+### 配置
+
+```
+compile 'com.sqq.xiaqu:countdownprogress:1.0.0'
+```

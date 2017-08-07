@@ -1,9 +1,12 @@
 package com.stone.circlecountdownview;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import com.stone.countdownprogress.CountDownProgress;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,5 +29,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.btnReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progress.reset();
+            }
+        });
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progress.setText("渣渣");
+                progress.setTextSize(18f);
+                progress.setTextColor(0xff00ff00);
+            }
+        }, 8000);
     }
 }

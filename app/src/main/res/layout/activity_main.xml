@@ -28,7 +28,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.stone.circlecountdownview.CountDownProgress
+    <TextView
+        android:id="@+id/btnReset"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_circle"
+        android:gravity="center"
+        android:text="reset"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btnStart"
+        android:layout_marginLeft="8dp" />
+
+    <com.stone.countdownprogress.CountDownProgress
         android:id="@+id/countDownProgress"
         android:layout_width="100dp"
         android:layout_height="100dp"
