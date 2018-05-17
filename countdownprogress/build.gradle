@@ -1,17 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
-
+    compileSdkVersion conf.compileSdkVersion
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion conf.minSdkVersion
+        targetSdkVersion conf.targetSdkVersion
+        versionCode conf.versionCode
+        versionName conf.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -22,12 +18,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
-    testCompile 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:$support"
+    testImplementation 'junit:junit:4.12'
 }
 
 ext {
@@ -38,12 +34,12 @@ ext {
     libraryName = 'countdownprogress'
     artifact = 'countdownprogress'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     libraryDescription = 'A view of count down '
 
     siteUrl = 'https://github.com/xiaqu-stone'
-    gitUrl = 'https://github.com/xiaqu-stone'
+    gitUrl = 'https://github.com/xiaqu-stone/CountDownProgress.git'
 
     developerId = 'stone'
     developerName = 'xiaqu-stone'

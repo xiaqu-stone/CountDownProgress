@@ -14,11 +14,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final CountDownProgress progress = (CountDownProgress) findViewById(R.id.countDownProgress);
-        progress.setFinishListener(new CountDownProgress.OnFinishListener() {
+        final CountDownProgress progress = findViewById(R.id.countDownProgress);
+        progress.setListener(new CountDownProgress.OnProgressListener() {
             @Override
             public void onFinish() {
                 Toast.makeText(MainActivity.this, "the count down timer is finish ", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(MainActivity.this, "the count down timer is canceled ", Toast.LENGTH_SHORT).show();
             }
         });
 

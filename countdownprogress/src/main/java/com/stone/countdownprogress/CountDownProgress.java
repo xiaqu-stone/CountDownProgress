@@ -48,7 +48,7 @@ public class CountDownProgress extends View {
     private int countDownTime;//倒计时长
 
     private ValueAnimator animator;
-    private OnFinishListener finishListener;
+    private OnProgressListener listener;
     private Paint solidPaint;
 
     public CountDownProgress(Context context) {
@@ -197,25 +197,29 @@ public class CountDownProgress extends View {
             }
         });
         animator.addListener(new Animator.AnimatorListener() {
+            private boolean isCanceled = false;
+
             @Override
             public void onAnimationStart(Animator animation) {
-
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (finishListener != null) {
-                    finishListener.onFinish();
+                if (listener != null && !isCanceled) {
+                    listener.onFinish();
                 }
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
+                isCanceled = true;
+                if (listener != null) {
+                    listener.onCancel();
+                }
             }
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-
             }
         });
         animator.start();
@@ -234,13 +238,15 @@ public class CountDownProgress extends View {
         invalidate();
     }
 
-    public CountDownProgress setFinishListener(OnFinishListener finishListener) {
-        this.finishListener = finishListener;
+    public CountDownProgress setListener(OnProgressListener listener) {
+        this.listener = listener;
         return this;
     }
 
-    public interface OnFinishListener {
+    public interface OnProgressListener {
         void onFinish();
+
+        void onCancel();
     }
 
     public CountDownProgress setTextColor(@ColorInt int textColor) {
@@ -251,7 +257,7 @@ public class CountDownProgress extends View {
 
     /**
      * @param textSize dp
-     * @return
+     * @return this
      */
     public CountDownProgress setTextSize(float textSize) {
         this.textSize = dp2px(textSize);
