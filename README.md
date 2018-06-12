@@ -19,5 +19,5 @@
 ### 配置
 
 ```
-compile 'com.sqq.xiaqu:countdownprogress:1.0.0'
+compile 'com.sqq.xiaqu:countdownprogress:1.0.1'
 ```
